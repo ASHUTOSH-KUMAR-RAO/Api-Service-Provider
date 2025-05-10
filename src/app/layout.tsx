@@ -1,29 +1,28 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Provider from "@/components/Provider";
+import { cn } from "@/lib/utils";
+import { Inter } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html
+      lang="en"
+      className={cn("bg-white text-slate-900 antialiased", inter.className)}
+    >
+      <body className="min-h-screen bg-slate-50 dark:bg-slate-900 antialiased">
+        <Provider>
+          {children}
+          <Navbar/>
+        </Provider>
+
+        {/* Allow more height for mobile menu on mobile */}
+        <div className="h-40 md:hidden" />
       </body>
     </html>
   );
